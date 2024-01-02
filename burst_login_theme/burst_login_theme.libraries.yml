@@ -1,0 +1,8 @@
+login-page:
+  css:
+    theme:
+      css/login-page.css: {}
+  js:
+    js/login-page.js: {}
+  dependencies:
+    - core/jquery

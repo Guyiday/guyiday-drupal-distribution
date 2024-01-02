@@ -1,0 +1,10 @@
+id: inline_editing_nid
+plugin_id: inline_editing_nid
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - json
+  authentication:
+    - cookie

@@ -1,0 +1,28 @@
+<?php
+
+function inline_editing_install() {
+  // Add routes to allow_iframed_site settings.
+  $config = \Drupal::configFactory()->getEditable('allow_iframed_site.settings');
+
+  $pages = [];
+  if ($config->get('request_path.pages')) {
+    $pages = explode(PHP_EOL, $config->get('request_path.pages'));
+  }
+
+  $pages[] = '/inline-editing/*';
+  $pages[] = '/user/login_status';
+
+  $config->set('request_path.pages', implode(PHP_EOL, $pages));
+  $config->save();
+}
+
+function inline_editing_uninstall() {
+  // Disable nid resource.
+  /** @var \Drupal\Core\Entity\EntityStorageInterface $storage */
+  $storage = \Drupal::service('entity_type.manager')->getStorage('rest_resource_config');
+
+  $nid_resource = $storage->load('inline_editing_nid');
+  if ($nid_resource) {
+    $nid_resource->delete();
+  }
+}

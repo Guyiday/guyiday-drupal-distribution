@@ -1,0 +1,36 @@
+name: Burst CMS
+type: profile
+description: 'The Drupal distribution for all Drupal projects at burst.'
+core: 8.x
+core_version_requirement: ^8 || ^9
+
+distribution:
+  name: Burst CMS
+  langcode: en
+
+install:
+  # Core
+  - node
+  - block
+  - field_ui
+  - dblog
+  - path
+
+  - config_ignore
+
+  - admin_toolbar
+  - admin_toolbar_tools
+  - admin_toolbar_links_access_filter
+  - admin_toolbar_search
+
+  - simple_sitemap
+  - paragraphs
+
+  # Modules that are currently located in this distribution
+  - burst_sane_defaults
+  - config_safety
+  - superadmin
+
+themes:
+  - claro
+  - burst_login_theme

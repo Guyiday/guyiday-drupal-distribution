@@ -1,0 +1,69 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_preprocess_html().
+ *
+ * Used to remove unnecessary render components from iFramed forms.
+ *
+ * @param array $vars
+ *   Contains render array.
+ */
+function inline_editing_preprocess_html(array &$vars) {
+  if (\Drupal::routeMatch()->getRouteName() !== 'inline_editing.render_form') {
+    return;
+  }
+
+  unset($vars['page_top']);
+  unset($vars['page']['header']);
+  unset($vars['page']['pre_content']);
+  unset($vars['page']['breadcrumb']);
+  unset($vars['page']['highlighted']);
+  unset($vars['page']['help']);
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Used to add a custom submit handler.
+ *
+ * @param array $form
+ *   Contains the form render array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Contains a form_state object.
+ */
+function inline_editing_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  // Only apply submit function if on render form route.
+  if (\Drupal::routeMatch()->getRouteName() !== 'inline_editing.render_form') {
+    return;
+  }
+
+  foreach (array_keys($form['actions']) as $action) {
+    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+      $form['actions'][$action]['#submit'][] = 'inline_editing_form_submit';
+    }
+  }
+}
+
+/**
+ * Custom form submit handler.
+ *
+ * Used to publish the saved paragraph through an iFramed form,
+ * as the paragraph starts out unpublished.
+ *
+ * @param array $form
+ *   Contains the form render array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Contains a form_state object.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ *   Throws exception if the Paragraph can't be saved.
+ */
+function inline_editing_form_submit(array &$form, FormStateInterface $form_state) {
+  /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+  $paragraph = $form_state->getFormObject()->getEntity();
+
+  $paragraph->setPublished(TRUE);
+  $paragraph->save();
+}

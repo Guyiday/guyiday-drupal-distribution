@@ -1,0 +1,4 @@
+frontend-iframe:
+  css:
+    theme:
+      css/frontend-iframe.css: {}

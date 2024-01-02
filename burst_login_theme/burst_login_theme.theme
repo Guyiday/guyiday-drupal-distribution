@@ -1,0 +1,41 @@
+<?php
+
+use Drupal\Core\Site\Settings;
+
+function burst_login_theme_preprocess_page(&$variables) {
+  $variables['route_name'] = \Drupal::routeMatch()->getRouteName();
+
+  $render = Drupal::service('renderer');
+  $user_login_form = Drupal::formBuilder()->getForm(Drupal\user\Form\UserLoginForm::class);
+  $variables['login_form'] = $render->renderPlain($user_login_form);
+  $user_password_form = Drupal::formBuilder()->getForm(Drupal\user\Form\UserPasswordForm::class);
+  $variables['reset_form'] = $render->renderPlain(
+    $user_password_form
+  );
+
+  $variables['burst_login_theme_styles'] = ':root {';
+
+  $background_url = Settings::get('burst_login_theme_background_url');
+  $color = Settings::get('burst_login_theme_color');
+  $color_accent = Settings::get('burst_login_theme_color_accent');
+
+  if ($background_url) {
+    $variables['burst_login_theme_styles'] .= "--background: url('$background_url');";
+  }
+  if ($color) {
+    $variables['burst_login_theme_styles'] .= "--color: $color;";
+  }
+  if ($color_accent) {
+    $variables['burst_login_theme_styles'] .= "--color-accent: $color_accent;";
+  }
+
+  $variables['burst_login_theme_styles'] .= "}";
+
+  $variables['messages'] = '';
+  foreach (\Drupal::service('messenger')->all() as $category => $messages) {
+    foreach ($messages as $message) {
+      $variables['messages'] .= "$message<br /><br /><br />";
+    }
+  }
+  \Drupal::service('messenger')->deleteAll();
+}

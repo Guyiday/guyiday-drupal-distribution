@@ -1,0 +1,73 @@
+<?php
+
+use Drupal\node\Entity\NodeType;
+
+function burst_sane_defaults_install() {
+  // We alter forms from simple_sitemap, so we want to have a weight that's higher.
+  module_set_weight('burst_sane_defaults', 1);
+}
+
+/**
+ * Alter the default options of a content type.
+ *
+ * @see \Drupal\node\NodeTypeForm::form()
+ */
+function burst_sane_defaults_form_node_type_add_form_alter(&$form) {
+  // The node type has the option to enable previewing before submitting.
+  // Default: DRUPAL_OPTIONAL
+  // Changed to: DRUPAL_DISABLED
+  $form['submission']['preview_mode']['#default_value'] = DRUPAL_DISABLED;
+
+  // The node type has the option to mark nodes as 'promoted' by default.
+  // Default: ON
+  // Changed to: OFF
+  unset($form['workflow']['options']['#default_value']['promote']);
+
+  // Simple sitemap has the option indexing entities of this type.
+  // Default: 0 (do not index)
+  // Changed to: 1 (index)
+  if (isset($form['simple_sitemap']['settings']['default']['index_default_node_settings']['#default_value'])) {
+    $form['simple_sitemap']['settings']['default']['index_default_node_settings']['#default_value'] = 1;
+  }
+}
+
+function burst_sane_defaults_node_type_insert(NodeType $nodeType) {
+  $bundle = $nodeType->id();
+
+  /**
+   * The entity form display isn't automatically created when a new node type is created, so we need to create it
+   * ourselves.
+   *
+   * @see \entity_get_form_display()
+   */
+
+  /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $entityFormDisplay */
+  $entityFormDisplay = \Drupal::entityTypeManager()
+    ->getStorage('entity_form_display')
+    ->create([
+      'targetEntityType' => 'node',
+      'bundle' => $bundle,
+      'mode' => 'default',
+      'status' => TRUE,
+    ]);
+
+  // We want to hide some fields by default.
+  $entityFormDisplay->removeComponent('created'); // Authored on
+  $entityFormDisplay->removeComponent('uid');     // Authored by
+  $entityFormDisplay->removeComponent('promote'); // Promote to front page
+  $entityFormDisplay->removeComponent('sticky');  // Sticky at top of lists
+  $entityFormDisplay->save();
+}
+
+/**
+ * When Drupal is freshly installed, add the right defaults on the configure page.
+ */
+function burst_sane_defaults_form_install_configure_form_alter(&$form) {
+  $form['site_information']['site_name']['#default_value'] = 'Burst';
+  $form['site_information']['site_mail']['#default_value'] = 'admin@example.com';
+  $form['admin_account']['account']['name']['#default_value'] = 'burst';
+  $form['admin_account']['account']['mail']['#default_value'] = 'admin@example.com';
+  $form['regional_settings']['site_default_country']['#default_value'] = 'NL';
+  $form['regional_settings']['date_default_timezone']['#default_value'] = 'Europe/Amsterdam';
+  $form['update_notifications']['enable_update_status_module']['#default_value'] = 0;
+}

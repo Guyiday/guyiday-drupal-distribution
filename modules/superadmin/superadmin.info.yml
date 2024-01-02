@@ -1,0 +1,6 @@
+name: Superadmin
+description: When logging in as the superadmin, asks you as which role you want to test.
+type: module
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: Administration

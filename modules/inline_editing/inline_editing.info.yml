@@ -1,0 +1,10 @@
+name: Headless Inline Editing
+type: module
+description: Headless Inline Editing
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: Burst
+dependencies:
+  - allow_iframed_site
+  - rest
+  - paragraphs

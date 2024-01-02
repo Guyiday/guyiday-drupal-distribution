@@ -1,0 +1,102 @@
+<?php
+
+/**
+ * Removed update function.
+ *
+ * Previously: Enable the Burst theme.
+ */
+function burst_distribution_update_8001() {
+  \Drupal::state()->set('burst_distribution_skipped_update_8001', TRUE);
+}
+
+/**
+ * Enable new utility modules.
+ */
+function burst_distribution_update_8002() {
+  /** @var \Drupal\Core\Extension\ModuleInstaller $module_installer */
+  $module_installer = \Drupal::service('module_installer');
+
+  $module_installer->install(['burst_sane_defaults', 'config_safety', 'superadmin']);
+
+  return 'Installed utility modules.';
+}
+
+/**
+ * Removed update function.
+ *
+ * Previously: Install the Burst login theme.
+ */
+function burst_distribution_update_8003() {
+  \Drupal::state()->set('burst_distribution_skipped_update_8003', TRUE);
+}
+
+/**
+ * Enable graphql_export, if it exists.
+ */
+function burst_distribution_update_8004() {
+  /** @var \Drupal\Core\Extension\ModuleInstaller $module_installer */
+  $module_installer = \Drupal::service('module_installer');
+
+  try {
+    $module_installer->install(['graphql_export']);
+  }
+  catch (\Drupal\Core\Extension\MissingDependencyException $e) {
+    return 'The graphql_export module does not exist, so it is not installed.';
+  }
+
+  return 'Installed graphql_export module.';
+}
+
+
+/**
+ * Enable the Burst theme.
+ *
+ * TODO: Give this update function a number when the new themes should be installed on all sites.
+ */
+function burst_distribution_update_8xxx1() {
+  if (!\Drupal::state()->get('burst_distribution_skipped_update_8001')) {
+    return 'This update has already run, as update 8001.';
+  }
+
+  /** @var \Drupal\Core\Extension\ModuleInstaller $module_installer */
+  $module_installer = \Drupal::service('module_installer');
+  /** @var \Drupal\Core\Extension\ThemeInstaller $theme_installer */
+  $theme_installer = \Drupal::service('theme_installer');
+  /** @var \Drupal\Core\Extension\ThemeHandler $theme_handler */
+  $theme_handler = \Drupal::service('theme_handler');
+
+  $theme_installer->install(['claro']);
+  $theme_handler->setDefault('claro');
+  $theme_installer->install(['burst_theme']);
+  $theme_handler->setDefault('burst_theme');
+
+  \Drupal::configFactory()->getEditable('system.theme')
+    ->set('admin', '')
+    ->save();
+
+  $module_installer->uninstall(['adminimal_admin_toolbar']);
+  $theme_installer->uninstall(['adminimal_theme']);
+
+  \Drupal::state()->delete('burst_distribution_skipped_update_8001');
+
+  return 'Installed the Burst theme.';
+}
+
+/**
+ * Install the Burst login theme.
+ *
+ * TODO: Give this update function a number when the new themes should be installed on all sites.
+ */
+function burst_distribution_update_8xxx2() {
+  if (!\Drupal::state()->get('burst_distribution_skipped_update_8003')) {
+    return 'This update has already run, as update 8003.';
+  }
+
+  /** @var \Drupal\Core\Extension\ThemeInstaller $theme_installer */
+  $theme_installer = \Drupal::service('theme_installer');
+  $theme_installer->install(['burst_login_theme']);
+
+  \Drupal::state()->delete('burst_distribution_skipped_update_8003');
+
+  return 'Installed the Burst login theme.';
+}

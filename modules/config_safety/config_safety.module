@@ -1,0 +1,11 @@
+<?php
+
+function config_safety_rebuild() {
+  $schema_versions = drupal_get_installed_schema_version(NULL, FALSE, TRUE);
+
+  \Drupal::configFactory()->getEditable('config_safety.schema_versions')->setData($schema_versions)->save();
+}
+
+function config_safety_install() {
+  config_safety_rebuild();
+}

@@ -1,0 +1,5 @@
+services:
+  superadmin.redirect_event_subscriber:
+    class: Drupal\superadmin\EventSubscriber\RedirectEventSubscriber
+    tags:
+      - { name: event_subscriber }

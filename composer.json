@@ -1,0 +1,47 @@
+{
+  "name": "burst/drupal-distribution",
+  "description": "The Burst Drupal distribution. For internal use only.",
+  "type": "drupal-profile",
+  "prefer-stable": true,
+  "minimum-stability": "dev",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    }
+  ],
+  "require": {
+    "drupal/cloudinary": "^2.1",
+    "burst/error_report": "^1.1",
+    "composer/installers": "^1.8",
+    "cweagans/composer-patches": "^1.6",
+    "drupal/admin_toolbar": "^3.2",
+    "drupal/allow_iframed_site": "^3.0",
+    "drupal/config_ignore": "^2.3",
+    "drupal/core": "^9.4",
+    "drupal/core-composer-scaffold": "^9.4",
+    "drupal/devel": "^5.0",
+    "drupal/devel_kint_extras": "^1.1",
+    "drupal/field_group": "^3.3",
+    "drupal/paragraphs": "^1.15",
+    "drupal/pathauto": "^1.11",
+    "drupal/seckit": "^2.0",
+    "drupal/simple_sitemap": "^4.1",
+    "drupal/view_unpublished": "^1.0",
+    "drush/drush": "^11.2"
+  },
+  "extra": {
+    "enable-patching": true,
+    "composer-exit-on-patch-failure": true,
+    "installer-disable": true,
+    "patches": {
+      "drupal/core": {
+        "#3099026 - Claro's preprocessing of field multiple value form's table header cell removes potential changes by others": "https://www.drupal.org/files/issues/2020-08-13/3099026-17.patch",
+        "Fix content translation metatag error": "https://gitlab.com/burstdigital/open-source/burst-drupal-distribution/-/raw/legacy/drupal_9/patches/content-translation-fix-metadata-wrapper_d9_1.patch"
+      }
+    }
+  },
+  "config": {
+    "sort-packages": true
+  }
+}

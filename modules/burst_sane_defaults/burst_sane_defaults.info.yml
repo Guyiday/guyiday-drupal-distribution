@@ -1,0 +1,6 @@
+name: Burst - Sane defaults
+description: Changes default options so it's harder to forget configuring stuff
+type: module
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: Administration

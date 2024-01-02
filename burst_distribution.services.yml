@@ -1,0 +1,9 @@
+services:
+  burst_distribution.theme.negotiator:
+    class: Drupal\burst_distribution\Theme\LoginThemeNegotiator
+    tags:
+      - { name: theme_negotiator, priority: 10 }
+  burst_distribution.redirect_to_login_subscriber:
+    class: Drupal\burst_distribution\EventSubscriber\RedirectToLoginSubscriber
+    tags:
+      - { name: event_subscriber }

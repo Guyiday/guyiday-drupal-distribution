@@ -1,0 +1,9 @@
+inline_editing.render_form:
+  path: '/inline-editing/render'
+  defaults:
+    _controller: '\Drupal\inline_editing\Controller\ParagraphEditFormController::renderForm'
+    _title: 'Render Paragraphs Form'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: TRUE

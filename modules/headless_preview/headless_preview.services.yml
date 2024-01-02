@@ -1,0 +1,4 @@
+services:
+  session_configuration:
+    class: Drupal\headless_preview\Session\SessionConfiguration
+    arguments: ['%session.storage.options%']

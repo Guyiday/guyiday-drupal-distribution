@@ -1,0 +1,29 @@
+<style>
+    {{burst_login_theme_styles|raw}}
+</style>
+<div class="page-wrapper">
+    <nav role="navigation" class="tabs-wrapper is-horizontal is-collapsible" aria-labelledby="primary-tabs-title" data-drupal-nav-tabs>
+        <ul class="tabs tabs--primary clearfix" data-drupal-nav-tabs-target>
+            <li class="tabs__tab is-active">
+                {{ link('Log in', 'route:user.login' ) }}
+            </li>
+            <li class="tabs__tab">
+                {{ link('Reset your password', 'route:user.pass' ) }}
+            </li>
+        </ul>
+    </nav>
+
+    <div class="layout-container">
+        <main class="page-content clearfix" role="main">
+            {{ messages|raw }}
+            <div data-tab="{{ path('user.login') }}" {% if route_name == 'user.pass' %} style="display: none;" {% endif %}>
+                {{login_form}}
+            </div>
+            <div data-tab="{{ path('user.pass') }}" {% if route_name != 'user.pass' %} style="display: none;" {% endif %}>
+                {{reset_form}}
+            </div>
+        </main>
+    </div>
+</div>
+
+<img id="burst-logo" src="{{ base_path ~ directory }}/img/burst-logo.svg">

@@ -1,0 +1,6 @@
+name: Config Safety
+description: Makes sure only config is updated when it's right, and you don't forget to export your config.
+type: module
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: Config

@@ -1,0 +1,8 @@
+admin-toolbar:
+  css:
+    theme:
+      css/admin-toolbar.css: {}
+frontend-iframe:
+  css:
+    theme:
+      css/frontend-iframe.css: {}

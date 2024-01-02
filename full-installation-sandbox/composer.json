@@ -1,0 +1,61 @@
+{
+  "type": "project",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "burst/drupal-distribution": "*"
+  },
+  "require-dev": {
+    "drupal/core-dev": "*"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    },
+    {
+      "type": "path",
+      "url": ".sl"
+    }
+  ],
+  "extra": {
+    "composer-exit-on-patch-failure": true,
+    "installer-paths": {
+      "web/core": [
+        "type:drupal-core"
+      ],
+      "web/libraries/{$name}": [
+        "type:drupal-library"
+      ],
+      "web/modules/contrib/{$name}": [
+        "type:drupal-module"
+      ],
+      "web/profiles/contrib/{$vendor}-{$name}": [
+        "type:drupal-profile"
+      ],
+      "web/themes/contrib/{$name}": [
+        "type:drupal-theme"
+      ],
+      "drush/contrib/{$name}": [
+        "type:drupal-drush"
+      ]
+    },
+    "enable-patching": true,
+    "drupal-scaffold": {
+      "locations": {
+        "web-root": "web"
+      }
+    }
+  },
+  "config": {
+    "platform": {
+      "ext-curl": "7.4.999",
+      "ext-dom": "7.4.999",
+      "ext-mbstring": "7.4.999",
+      "ext-gd": "7.4.999",
+      "ext-simplexml": "7.4.999",
+      "ext-xmlwriter": "7.4.999",
+      "ext-xml": "7.4.999"
+    }
+  }
+}

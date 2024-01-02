@@ -1,0 +1,35 @@
+/**
+ * Burst logo instead of Burst logo
+ */
+.toolbar .toolbar-icon-admin-toolbar-tools-help {
+  padding-left: 2.75em;
+  padding-right: 2.75em;
+}
+
+.toolbar .toolbar-icon-admin-toolbar-tools-help:before {
+  background-image: url('../logo.svg');
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background-size: contain;
+  background-position-y: 42%;
+  width: 3.5em;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.toolbar-superadmin-page #toolbar-item-administration-search {
+  display: none;
+}
+
+.toolbar-superadmin-page #toolbar-item-devel {
+  display: none;
+}
+
+.toolbar-superadmin-page .toolbar-menu-administration > .toolbar-menu > .menu-item:not(:nth-child(1)) {
+  display: none;
+}
+
+.toolbar-superadmin-page .toolbar-menu-administration > .toolbar-menu > .menu-item:nth-child(1) {
+  border-right: 1px solid #dddddd;
+}

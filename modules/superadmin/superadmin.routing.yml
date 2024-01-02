@@ -1,0 +1,7 @@
+superadmin.choose_roles:
+  path: '/admin/choose-admin-roles'
+  defaults:
+    _form: '\Drupal\superadmin\Controller\ChooseRolesController'
+    _title: 'Choose user roles'
+  requirements:
+    _custom_access: '\Drupal\superadmin\Controller\ChooseRolesController::accessAllowed'

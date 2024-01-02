@@ -1,0 +1,6 @@
+config_safety.schema_versions:
+  type: sequence
+  label: Module schema versions
+  sequence:
+    type: integer
+    label: Schema version

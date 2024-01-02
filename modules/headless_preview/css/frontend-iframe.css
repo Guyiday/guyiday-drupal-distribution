@@ -1,0 +1,8 @@
+.page-title--preview::after {
+  content: 'PREVIEW';
+  color: white;
+  margin-left: 20px;
+  border: 1px solid green;
+  background-color: green;
+  padding: 5px;
+}

@@ -1,0 +1,9 @@
+name: Burst Login Theme
+type: theme
+description: The Burst Login theme.
+core: 8.x
+core_version_requirement: ^8 || ^9
+base theme: stable
+
+libraries:
+  - burst_login_theme/login-page

@@ -1,0 +1,6 @@
+inline_editing.form:
+  version: 1.x
+  js:
+    js/inline_editing.form.js: {}
+  dependencies:
+    - core/jquery

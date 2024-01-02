@@ -1,0 +1,165 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css";
+@import "https://use.typekit.net/jmr6zig.css";
+
+:root {
+    --color: #007866;
+    --color-accent: #006253;
+    --background: url('../img/bg-natuurmonumenten.jpg');
+}
+
+/*font-family: proxima-nova, sans-serif;*/
+/*font-weight: 700, 600, 400, 300;*/
+/*font-style: normal;*/
+* {
+    box-sizing: border-box;
+}
+.visually-hidden {
+    display: none;
+}
+body {
+    background: var(--background);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    font-family: proxima-nova, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.page-wrapper {
+    position: absolute;
+    background-color: white;
+    max-width: 480px;
+    margin: 0 auto;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    border-radius: 3px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+.tabs--primary {
+    list-style: none;
+    padding: 20px 60px;
+    display: flex;
+    border-bottom: 1px solid #EAEAEA;
+    margin: 0;
+}
+.tabs__tab {
+    text-decoration: none;
+}
+.tabs__tab:first-child {
+    width: 25%;
+}
+.tabs__tab:last-child {
+    margin-left: auto;
+    text-align: right;
+    width: 75%
+}
+.tabs__tab a {
+    text-decoration: none;
+    color: #000;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-family: proxima-nova, sans-serif;
+    font-weight: 600;
+    transition: all 0.25s cubic-bezier(0.77, 0, 0.175, 1);;
+}
+.tabs__tab a:hover {
+    color: var(--color);
+}
+.page-content {
+    padding: 60px;
+}
+.form-item {
+    position: relative;
+    margin-bottom: 30px;
+    width: 100%;
+}
+form label {
+    margin-left: 20px;
+    position: absolute;
+    top: 11px;
+    transition: all 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+    transform-origin: left center;
+    padding: 6px;
+    background-color: white;
+}
+form label.form-required:after {
+    content: '*';
+    color: #FF0000;
+    position: absolute;
+    right: -1px;
+    top: 2px;
+}
+/*Active*/
+.small-form-label label {
+    transform: translateY(-24px) scale(0.85);
+}
+form input {
+    padding: 0 20px;
+}
+input {
+    border: 2px solid #BCBCBC;
+    border-radius: 3px;
+    height: 50px;
+    width: 100%;
+    transition: all 0.25s cubic-bezier(0.77, 0, 0.175, 1);
+    font-size: 14px;
+}
+input:focus {
+    outline: 0;
+    border: 2px solid var(--color);
+}
+.form-submit {
+    display: block;
+    position: relative;
+    width: auto;
+    background: var(--color);
+    color: white;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-family: proxima-nova, sans-serif;
+    font-weight: 600;
+    border: none;
+    transition: all 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+    cursor: pointer;
+}
+.form-submit:hover {
+    background: var(--color-accent);
+}
+form .description {
+    display: none;
+}
+#burst-logo {
+    width: 90px;
+    height: auto;
+    position: absolute;
+    left: 60px;
+    bottom: 60px;
+}
+@media only screen and (max-width: 768px) {
+    .page-wrapper {
+        max-width: auto;
+        width: calc(100% - 60px);
+    }
+    .tabs--primary {
+        list-style: none;
+        padding: 15px 30px;
+    }
+    .page-content {
+        padding: 30px;
+    }
+    #burst-logo {
+        width: 60px;
+        height: auto;
+        position: absolute;
+        left: 30px;
+        bottom: 30px;
+    }
+}

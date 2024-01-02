@@ -1,0 +1,6 @@
+services:
+  content_safety.config_import_subscriber:
+    class: Drupal\config_safety\EventSubscriber\ConfigImportSubscriber
+    arguments: ['@config.manager', '@entity_type.manager']
+    tags:
+      - { name: event_subscriber }

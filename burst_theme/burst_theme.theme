@@ -1,0 +1,50 @@
+<?php
+
+use Drupal\Core\Site\Settings;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter for blocks.
+ */
+function burst_theme_theme_suggestions_block_alter(&$suggestions, $variables) {
+
+  // Load theme suggestions for blocks from parent theme.
+  foreach ($suggestions as &$suggestion) {
+    $suggestion = str_replace('burst_theme_', 'claro_', $suggestion);
+  }
+}
+
+function burst_theme_preprocess_html(&$variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if ($route_name === 'superadmin.choose_roles') {
+    $variables['attributes']['class'][] = 'toolbar-superadmin-page';
+  }
+
+  if (
+    $route_name === 'entity.node.canonical' &&
+    \Drupal::state()->get('disable_burst_theme_preview') === NULL
+  ) {
+    $url = Url::fromRoute('<current>')->setAbsolute()->toString();
+    $fe_url = Settings::get('burst_theme_frontend_url')($url);
+
+    // Overwrite $fe_url if set in state (usually for development only).
+    $override = \Drupal::state()->get('fe_url_override');
+    if ($override) {
+      $path = Url::fromRoute('<current>')->toString();
+      $fe_url = $override . $path;
+    }
+
+    if ($url !== $fe_url) {
+      $variables['page']['content']['burst_theme_content'] = [
+        '#type' => 'inline_template',
+        '#template' => '<iframe src="{{ url }}" id="frontend-iframe"></iframe>',
+        '#context' => [
+          'url' => $fe_url,
+        ],
+        '#attached' => [
+          'library' => ['burst_theme/frontend-iframe']
+        ]
+      ];
+    }
+  }
+}

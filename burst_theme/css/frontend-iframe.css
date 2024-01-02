@@ -1,0 +1,62 @@
+body {
+    box-sizing: border-box;
+    height: 100vh;
+}
+
+.page-wrapper {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-wrapper > * {
+    flex: 0 1 auto;
+}
+.page-wrapper > .layout-container {
+    flex: 1 1 auto;
+    margin: 0 !important;
+}
+
+.page-content {
+    height: 100%;
+    margin-bottom: 0;
+}
+
+.region-content {
+    height: 100%;
+    position: relative;
+}
+
+.content-header {
+    margin-bottom: -2.5em;
+}
+
+#frontend-iframe {
+    width: 100vw;
+    position: absolute;
+    border: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+}
+
+/* only show messages for a few seconds, they can overlap. */
+.region-highlighted {
+    pointer-events: none;
+    z-index: 1;
+    position: relative;
+    animation: frontend-iframe-hide-highlighted 5s ease-in 1s forwards;
+}
+
+@-webkit-keyframes frontend-iframe-hide-highlighted {
+    from {
+        opacity: 1;
+        max-height:100vh;
+    }
+    to {
+        opacity: 0;
+        max-height:0;
+    }
+}
