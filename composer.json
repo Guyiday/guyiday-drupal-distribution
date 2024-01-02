@@ -1,5 +1,5 @@
 {
-  "name": "burst/drupal-distribution",
+  "name": "guyiday/guyiday-drupal-distribution",
   "description": "The Burst Drupal distribution. For internal use only.",
   "type": "drupal-profile",
   "prefer-stable": true,
